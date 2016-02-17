@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/adam-s/954back/issues"
   },
-  "homepage": "https://github.com/adam-s/954back#readme"
+  "homepage": "https://github.com/adam-s/954back#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "express": "^4.13.4",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.3",
+    "morgan": "^1.6.1"
+  }
 }
