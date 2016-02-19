@@ -2,5 +2,5 @@
 
 // Set the 'production' environment configuration object
 module.exports = {
-    db: procss.env.MONGOLAB_URI
+    db: process.env.MONGOLAB_URI
 };
