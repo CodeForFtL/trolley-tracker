@@ -4,6 +4,7 @@
   "description": "Backend to 954live",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js"
   },
   "repository": {
