@@ -38,7 +38,10 @@ module.exports = function (db) {
     app.use(express.static('./client/src'));
 
     // Load the routing files
-    require('../routes/app.routes.js');
+    require('../routes/index.routes.js')(app);
+
+    // This has to go last as a catch all
+    require('../routes/app.routes.js')(app);
 
     // Return the Server instance
     return server;

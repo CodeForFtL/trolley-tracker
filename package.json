@@ -23,5 +23,10 @@
     "method-override": "^2.3.5",
     "mongoose": "^4.4.3",
     "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3"
   }
 }
