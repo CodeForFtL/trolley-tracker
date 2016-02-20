@@ -2,6 +2,8 @@
 /**
  * @link https://github.com/jsoverson/grunt-env
  * @link https://github.com/pghalliday/grunt-mocha-test
+ * @link https://github.com/gruntjs/grunt-contrib-watch
+ * @link https://github.com/stephenplusplus/grunt-wiredep
  */
 
 module.exports = function(grunt) {
@@ -30,6 +32,16 @@ module.exports = function(grunt) {
                 },
                 files: '**/*.js',
                 tasks: ['test']
+            },
+            wiredep: {
+                files: ['client/bower_components/**'],
+                tasks: ['wiredep']
+            }
+        },
+        wiredep: {
+            src: {
+                src: ['client/index.html'],
+                exclude: ['client/bower_components/angular-mocks/']
             }
         }
     });
@@ -37,6 +49,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-wiredep');
 
     grunt.registerTask('test', ['env:test', 'mochaTest']);
 };
