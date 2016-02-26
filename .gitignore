@@ -1,5 +1,6 @@
 .sass-cache
 .idea/
+.tmp/
 /node_modules
 /client/bower_components
 /client/images
