@@ -4,5 +4,5 @@
 /client/bower_components
 /client/images
 /client/css
-/dist
+/build
 npm-debug.log
