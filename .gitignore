@@ -1,6 +1,5 @@
 .sass-cache
 .idea/
-.tmp/concat
 /node_modules
 /client/bower_components
 /client/images
