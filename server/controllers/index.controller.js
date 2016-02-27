@@ -1,5 +1,6 @@
 'use strict';
-var path = require('path');
+var path = require('path'),
+    config = '../config/config';
 
 var appRoot = path.dirname(require.main.filename);
 
@@ -10,5 +11,5 @@ var appRoot = path.dirname(require.main.filename);
  * @param next
  */
 exports.index = function (req, res, next) {
-    res.sendFile(appRoot + '/build/index.html');
+    res.sendFile(appRoot + '/' + config.dir + '/index.html');
 };

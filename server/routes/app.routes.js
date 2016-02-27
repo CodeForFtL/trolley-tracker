@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path');
+var path = require('path'),
+    config = '../config/config';
 
 // Express drops through all the route middle ware to find a URL that matches a definition.
 // If it gets to the bottom and doesn't find anything because this is a single page app
@@ -9,7 +10,7 @@ var path = require('path');
 
 module.exports = function(app) {
     app.all('/*', function(req, res) {
-        res.sendFile(path.join(__dirname + '../../../build/index.html'));
+        res.sendFile(path.join(__dirname + '../../../' + config.dir + '/index.html'));
     });
 };
 

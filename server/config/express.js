@@ -35,7 +35,7 @@ module.exports = function (db) {
     app.set('view engine', 'jade');
 
     // Configure static file serving
-    app.use(express.static('./build'));
+    app.use(express.static('./' + config.dir));
 
     // Load the routing files
     require('../routes/index.routes.js')(app);
