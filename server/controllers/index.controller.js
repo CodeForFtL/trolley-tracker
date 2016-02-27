@@ -10,5 +10,5 @@ var appRoot = path.dirname(require.main.filename);
  * @param next
  */
 exports.index = function (req, res, next) {
-    res.sendFile(appRoot + '/client/index.html');
+    res.sendFile(appRoot + '/build/index.html');
 };

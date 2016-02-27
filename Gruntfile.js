@@ -56,7 +56,14 @@ module.exports = function(grunt) {
             }
         },
         ngtemplates: {
-
+            live: {
+                cwd: 'client',
+                src: '**/*.tpl.html',
+                dest: '.tmp/template.js',
+                options: {
+                    usemin: 'js/app.js'
+                }
+            }
         },
         injector: {
             options: {
@@ -116,6 +123,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'copy:index.html',
         'useminPrepare',
+        'ngtemplates',
         'concat',
         'cssmin',
         'uglify',
