@@ -17,12 +17,14 @@ It needs to be able to define different types of event information sources, menu
 1. ~~Define directory structure.~~
 2. ~~Build index.html. Try to implement grunt usemin (https://github.com/yeoman/grunt-usemin) and
  grunt wire dependencies (https://github.com/stephenplusplus/grunt-wiredep).~~
-3. Don't worry about implementing grunt usemin. Probably won't add efficiency over the hassle of managing all the edge cases.
+3. ~~Don't worry about implementing grunt usemin. Probably won't add efficiency over the hassle of managing all the edge cases.
  Instead wire up grunt concat (https://github.com/gruntjs/grunt-contrib-concat)
  with grunt angular templates (https://www.npmjs.com/package/grunt-angular-templates)
- and grunt uglify (https://github.com/gruntjs/grunt-contrib-uglify). The files are piped through these formatters and saved in the dist directory.
+ and grunt uglify (https://github.com/gruntjs/grunt-contrib-uglify). The files are piped through these formatters and saved in the dist directory.~~
+4. The one thing missing on the automated workflow with grunt is client side Angular testing. That will be wired up now.
+
 
 
 ## Misc
 1. Don't have a MEAN generator that isn't complicated so I'm trying this scratch.
-2.
+2. I went overboard and wired up grunt to do everything! There is a build pipeline which gets pushed to heroku. Here is a Reddit thread on pushing a build folder to be used on [Heroku](https://www.reddit.com/r/javascript/comments/47snko/how_do_i_keep_a_development_repository_on_github/)
