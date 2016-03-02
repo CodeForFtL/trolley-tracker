@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                     spawn: false
                 },
                 files: ['{server,client}/**/*.js'],
-                tasks: ['test']
+                tasks: [ 'karma', 'test']
             },
             wiredep: {
                 files: ['client/bower_components/**'],
@@ -102,6 +102,12 @@ module.exports = function(grunt) {
                 src: 'client/index.html',
                 dest: 'build/index.html'
             }
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                singleRun: true
+            }
         }
     });
 
@@ -117,6 +123,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('test', ['env:test', 'mochaTest']);
 
