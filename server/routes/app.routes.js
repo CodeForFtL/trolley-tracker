@@ -12,6 +12,7 @@ module.exports = function(app) {
 
     // Looking for a static resource if it is not found in the client directory it falls through to
     // here. A 404 needs to be sent to the client because the catch all index.html hangs up the browser
+    //
     app.all('/:url(api|styles|bower_components|scripts|images|templates)/*', function(req, res) {
         console.log(req);
         res.status(404)
@@ -22,4 +23,3 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname + '../../../' + config.dir + '/index.html'));
     });
 };
-
