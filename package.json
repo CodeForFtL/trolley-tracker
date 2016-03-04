@@ -1,7 +1,7 @@
 {
-  "name": "954back",
+  "name": "Trolly Tracker",
   "version": "1.0.0",
-  "description": "Backend to 954live",
+  "description": "Manage city trolly data",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adam-s/954back.git"
+    "url": "git+https://github.com/adam-s/trolly-tracker.git"
   },
   "author": "Adam S",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/adam-s/954back/issues"
+    "url": "https://github.com/adam-s/trolly-tracker/issues"
   },
-  "homepage": "https://github.com/adam-s/954back#readme",
+  "homepage": "https://github.com/adam-s/trolly-tracker#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",

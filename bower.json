@@ -1,6 +1,6 @@
 {
-  "name": "954back",
-  "description": "Backend to 954live",
+  "name": "Trolly Tracker",
+  "description": "Manage city trolly data",
   "main": "server.js",
   "authors": [
     "Adam S"
