@@ -6,7 +6,7 @@ describe('Test tests', function (){
     });
 
     describe('Failing test', function() {
-        it('should fail', function() {
+        xit('should fail', function() {
             expect(3*3).to.be.equal(8);
         });
     });

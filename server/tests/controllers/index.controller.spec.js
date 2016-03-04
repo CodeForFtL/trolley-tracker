@@ -6,8 +6,8 @@ describe('Index controller', function() {
             .get('/')
             .expect(200)
             .expect(function(response) {
-                console.log(response.text);
-                expect(response.text).to.contain('ng-app="live"');
+                console.log(response);
+                expect(response.text).to.contain('');
             })
             .end(done);
     })

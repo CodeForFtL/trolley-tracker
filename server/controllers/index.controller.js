@@ -1,7 +1,7 @@
 'use strict';
 var path = require('path'),
-    config = '../config/config';
-
+    config = require('../config/config');
+console.log(config);
 var appRoot = path.dirname(require.main.filename);
 
 /**
