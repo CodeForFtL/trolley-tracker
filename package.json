@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js",
-    // @link http://xseignard.github.io/2013/02/18/use-bower-with-heroku/
     "postinstall": "./node_modules/bower/bin/bower install"
   },
   "repository": {
