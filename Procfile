@@ -1,1 +1,1 @@
-web: bin/heroku.sh
+web: npm start

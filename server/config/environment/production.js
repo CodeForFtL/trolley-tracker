@@ -7,5 +7,5 @@
 
 module.exports = {
     db: process.env.MONGOLAB_URI,
-    dir: 'build'
+    dir: 'client'
 };
