@@ -1,5 +1,5 @@
 {
-  "name": "Trolly Tracker",
+  "name": "trolly-tracker",
   "description": "Manage city trolly data",
   "main": "server.js",
   "authors": [
