@@ -133,11 +133,9 @@ exports.delete = function (req, res, next) {
         });
     } else {
         res.json({
-            res.json({
-                "status": "failure",
-                "data": null,
-                "message": "Nice try!"
-            });
+            "status": "failure",
+            "data": null,
+            "message": "Nice try!"
         });
     }
 }
