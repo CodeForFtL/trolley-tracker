@@ -1,7 +1,7 @@
 {
   "name": "trolly-tracker",
   "version": "1.0.0",
-  "description": "Manage city trolly data",
+  "description": "Manage city trolley data",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

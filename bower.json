@@ -1,12 +1,12 @@
 {
   "name": "trolly-tracker",
-  "description": "Manage city trolly data",
+  "description": "Manage city trolley data",
   "main": "server.js",
   "authors": [
     "Adam S"
   ],
   "license": "GPL-3.0",
-  "homepage": "https://github.com/adam-s/954back",
+  "homepage": "https://github.com/adam-s/trolly-tracker",
   "moduleType": [],
   "private": true,
   "ignore": [

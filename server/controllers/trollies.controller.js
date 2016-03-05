@@ -102,10 +102,10 @@ exports.create = function(req, res, next) {
             deviceId: deviceId,
             speed: speed,
             location: {
-                lat: lat,
-                lng: lng
+                lng: lng,
+                lat: lat
             },
-            loc: [lat, lng]
+            loc: [lng, lat]
         });
 
         trolly.save(function(err, savedTrolly) {
