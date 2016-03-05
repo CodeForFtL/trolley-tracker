@@ -3,9 +3,15 @@
 var Trolly = require('../../models/trolly.model'),
     mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/trolly-tracker-test');
-
 describe('Trolly model unit tests:', function() {
+    before(function() {
+        mongoose.connect('mongodb://localhost/trolly-tracker-test');
+    });
+
+    after(function() {
+        mongoose.disconnect();
+    });
+
     beforeEach(function(done) {
         Trolly.remove(function() {done()});
     });

@@ -1,6 +1,8 @@
 'use strict';
 
-var chai = require('chai');
+var chai = require('chai'),
+    mongoose = require('mongoose');
+
 
 // Load Chai assertions
 global.expect = chai.expect;

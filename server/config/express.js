@@ -39,6 +39,7 @@ module.exports = function (db) {
 
     // Load the routing files
     require('../routes/index.routes.js')(app);
+    require('../routes/trollies.routes.js')(app);
 
     // This has to go last as a catch all
     require('../routes/app.routes.js')(app);

@@ -6,7 +6,6 @@ describe('Index controller', function() {
             .get('/')
             .expect(200)
             .expect(function(response) {
-                console.log(response);
                 expect(response.text).to.contain('');
             })
             .end(done);
