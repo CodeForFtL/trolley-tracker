@@ -120,7 +120,7 @@ exports.create = function(req, res, next) {
 }
 
 exports.delete = function (req, res, next) {
-    var token = req.params.token;
+    var token = req.query.token;
 
     if (token == 'dont-fucking-do-it') {
         Trolly.remove(function(err) {
