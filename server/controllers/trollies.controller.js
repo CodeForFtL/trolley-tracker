@@ -40,7 +40,7 @@ exports.index = function(req, res, next) {
         }
 
         query.limit(limit);
-        query.sort('date');
+        query.sort('-date');
 
         query
             .exec(function(err, trollies) {

@@ -57,9 +57,9 @@ describe('Trollies controller', function() {
                 .expect(200)
                 .end(function(err, response) {
                     var data = response.body.data;
-                    expect(data[0].date).to.equal((new Date('2016-03-02')).toISOString());
+                    expect(data[0].date).to.equal((new Date('2016-03-04')).toISOString());
                     expect(data[1].date).to.equal((new Date('2016-03-03')).toISOString());
-                    expect(data[2].date).to.equal((new Date('2016-03-04')).toISOString());
+                    expect(data[2].date).to.equal((new Date('2016-03-02')).toISOString());
                     done();
                 });
         });
