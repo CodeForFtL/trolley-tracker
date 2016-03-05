@@ -109,6 +109,7 @@ exports.create = function(req, res, next) {
         });
 
         trolly.save(function(err, savedTrolly) {
+            if (err) return next(err);
             res.json({
                 "status": "success",
                 "data": savedTrolly,
@@ -116,5 +117,27 @@ exports.create = function(req, res, next) {
             });
         });
     };
+}
 
+exports.delete = function (req, res, next) {
+    var token = req.params.token;
+
+    if (token == 'dont-fucking-do-it') {
+        Trolly.remove(function(err) {
+            if (err) return next(err);
+            res.json({
+                "status": "success",
+                "data": null,
+                "message": "You swiped everything"
+            });
+        });
+    } else {
+        res.json({
+            res.json({
+                "status": "failure",
+                "data": null,
+                "message": "Nice try!"
+            });
+        });
+    }
 }
