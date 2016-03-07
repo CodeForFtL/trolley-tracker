@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var TrollySchema = new Schema({
+var trolleySchema = new Schema({
     date: {
         type: Date,
         default: Date.now,
@@ -23,4 +23,4 @@ var TrollySchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Trolly', TrollySchema);
+module.exports = mongoose.model('trolley', trolleySchema);

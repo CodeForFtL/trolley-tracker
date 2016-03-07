@@ -2,6 +2,6 @@
 
 // Set the 'test' environment configuration object
 module.exports = {
-    db: 'mongodb://localhost/trolly-tracker-test',
+    db: 'mongodb://localhost/trolley-tracker-test',
     dir: 'client'
 };

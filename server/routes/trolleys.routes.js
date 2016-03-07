@@ -1,9 +1,9 @@
 'use strict';
 
-var trollies = require('../controllers/trolleys.controller.js');
+var trolleys = require('../controllers/trolleys.controller.js');
 
 module.exports = function(app) {
-    app.get('/api/trollies', trollies.index);
-    app.get('/api/trollies/post', trollies.create);
-    app.get('/api/trollies/delete', trollies.delete);
+    app.get('/api/trolleys', trolleys.index);
+    app.get('/api/trolleys/post', trolleys.create);
+    app.get('/api/trolleys/delete', trolleys.delete);
 }

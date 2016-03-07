@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Trolly = mongoose.model('Trolly'),
+    trolley = mongoose.model('trolley'),
     _ = require('lodash');
 
 exports.index = function(req, res, next) {
@@ -33,7 +33,7 @@ exports.index = function(req, res, next) {
             "message": messages
         });
     } else {
-        var query = Trolly.find();
+        var query = trolley.find();
 
         if (deviceId) {
             query.where('deviceId', deviceId);
@@ -43,11 +43,11 @@ exports.index = function(req, res, next) {
         query.sort('-date');
 
         query
-            .exec(function(err, trollies) {
+            .exec(function(err, trolleys) {
                 if (err) return next(err);
                 res.json({
                     "status": "success",
-                    "data": trollies,
+                    "data": trolleys,
                     "message": null
                 });
             });
@@ -98,7 +98,7 @@ exports.create = function(req, res, next) {
             "message": messages
         });
     } else {
-        var trolly = new Trolly({
+        var trolley = new trolley({
             deviceId: deviceId,
             speed: speed,
             location: {
@@ -108,11 +108,11 @@ exports.create = function(req, res, next) {
             loc: [lng, lat]
         });
 
-        trolly.save(function(err, savedTrolly) {
+        trolley.save(function(err, savedtrolley) {
             if (err) return next(err);
             res.json({
                 "status": "success",
-                "data": savedTrolly,
+                "data": savedtrolley,
                 "message": null
             });
         });
@@ -123,7 +123,7 @@ exports.delete = function (req, res, next) {
     var token = req.query.token;
 
     if (token == 'dont-fucking-do-it') {
-        Trolly.remove(function(err) {
+        trolley.remove(function(err) {
             if (err) return next(err);
             res.json({
                 "status": "success",

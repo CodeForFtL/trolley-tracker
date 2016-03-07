@@ -1,39 +1,39 @@
 'use strict';
 
-var Trolly = require('../../models/trolly.model'),
+var trolley = require('../../models/trolley.model.js'),
     mongoose = require('mongoose');
 
-describe('Trollies controller', function() {
+describe('trolleys controller', function() {
     before(function() {
-        mongoose.connect('mongodb://localhost/trolly-tracker-test');
+        mongoose.connect('mongodb://localhost/trolley-tracker-test');
     });
 
     after(function() {
         mongoose.disconnect();
     });
 
-    describe('Are trollies wired up?', function() {
-        it('should not error at GET: /api/trollies', function(done) {
+    describe('Are trolleys wired up?', function() {
+        it('should not error at GET: /api/trolleys', function(done) {
             request(app)
-                .get('/api/trollies')
+                .get('/api/trolleys')
                 .expect(200)
                 .end(done);
         });
 
-        it('should get error at GET /api/trollies/post', function(done) {
+        it('should get error at GET /api/trolleys/post', function(done) {
             request(app)
-                .get('/api/trollies/post')
+                .get('/api/trolleys/post')
                 .expect(400)
                 .end(done);
         });
     });
 
-    describe('GET /api/trollies', function() {
-        seedTrollies();
+    describe('GET /api/trolleys', function() {
+        seedtrolleys();
 
-        it('should get all the trollies', function(done) {
+        it('should get all the trolleys', function(done) {
             request(app)
-                .get('/api/trollies')
+                .get('/api/trolleys')
                 .expect(200)
                 .end(function(err, response){
                     expect(response.body.data.length).to.equal(3);
@@ -43,7 +43,7 @@ describe('Trollies controller', function() {
 
         it('should limit the response', function(done) {
             request(app)
-                .get('/api/trollies?limit=1')
+                .get('/api/trolleys?limit=1')
                 .expect(200)
                 .end(function(err, response) {
                     expect(response.body.data.length).to.equal(1);
@@ -53,7 +53,7 @@ describe('Trollies controller', function() {
 
         it('should sort the response by date', function(done) {
             request(app)
-                .get('/api/trollies')
+                .get('/api/trolleys')
                 .expect(200)
                 .end(function(err, response) {
                     var data = response.body.data;
@@ -65,12 +65,12 @@ describe('Trollies controller', function() {
         });
     });
 
-    describe('GET /api/trollies validation errors', function() {
-        seedTrollies();
+    describe('GET /api/trolleys validation errors', function() {
+        seedtrolleys();
 
         it('should bitch if limit is NaN', function(done) {
             request(app)
-                .get('/api/trollies?limit=lifesabitch')
+                .get('/api/trolleys?limit=lifesabitch')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.message).to.equal('Limit must be a number');
@@ -80,7 +80,7 @@ describe('Trollies controller', function() {
 
         it('should throw up if limit is greater than 100', function(done) {
             request(app)
-                .get('/api/trollies?limit=101')
+                .get('/api/trolleys?limit=101')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.message).to.equal('Limit can\'t be more than 100');
@@ -89,10 +89,10 @@ describe('Trollies controller', function() {
         });
     });
 
-    describe('GET /api/trollies/post', function() {
-        it('should save a trolly to the database', function(done) {
+    describe('GET /api/trolleys/post', function() {
+        it('should save a trolley to the database', function(done) {
             request(app)
-                .get('/api/trollies/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4')
                 .expect(200)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('success');
@@ -102,10 +102,10 @@ describe('Trollies controller', function() {
         });
     });
 
-    describe('GET /api/trollies/post validation errors', function() {
+    describe('GET /api/trolleys/post validation errors', function() {
         it('should throw an error if speed is not included in the query', function(done) {
             request(app)
-                .get('/api/trollies/post?lat=26.203733&lng=-80.148749&deviceId=4')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceId=4')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');
@@ -116,7 +116,7 @@ describe('Trollies controller', function() {
 
         it('should throw an error if speed is NaN', function(done) {
             request(app)
-                .get('/api/trollies/post?lat=26.203733&lng=-80.148749&deviceId=4&speed=imnotanumber')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceId=4&speed=imnotanumber')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');
@@ -128,10 +128,10 @@ describe('Trollies controller', function() {
 
 });
 
-function seedTrollies() {
+function seedtrolleys() {
     before(function(done) {
-        Trolly.remove({}, function() {
-            var trollies = [
+        trolley.remove({}, function() {
+            var trolleys = [
                 {
                     date: new Date('2016-03-02'),
                     deviceId: 1,
@@ -164,7 +164,7 @@ function seedTrollies() {
                 }
             ];
 
-            Trolly.create(trollies, function(err, savedTrolly) {
+            trolley.create(trolleys, function(err, savedtrolley) {
                 expect(typeof err).to.not.equal('undefined');
                 done();
             });
@@ -172,6 +172,6 @@ function seedTrollies() {
     });
 
     after(function(done) {
-        Trolly.remove({}, function() { done() });
+        trolley.remove({}, function() { done() });
     });
 }

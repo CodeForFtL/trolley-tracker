@@ -11,7 +11,7 @@ module.exports = function () {
     // Here we use require('../models/artist.model'); to load a model. However, this
     // is tightly coupled to a route so it should perhaps be defined in a config file with routes
     // with an iterator.
-    require('../models/trolly.model');
+    require('../models/trolley.model.js');
 
     return db;
 }

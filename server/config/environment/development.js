@@ -2,6 +2,6 @@
 
 // Set the 'development' environment configuration object
 module.exports = {
-    db: 'mongodb://localhost/trolly-tracker-dev',
+    db: 'mongodb://localhost/trolley-tracker-dev',
     dir: 'client'
 };

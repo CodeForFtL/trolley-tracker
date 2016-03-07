@@ -1,5 +1,5 @@
 {
-  "name": "trolly-tracker",
+  "name": "trolley-tracker",
   "version": "1.0.0",
   "description": "Manage city trolley data",
   "main": "server.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adam-s/trolly-tracker.git"
+    "url": "git+https://github.com/adam-s/trolley-tracker.git"
   },
   "author": "Adam S",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/adam-s/trolly-tracker/issues"
+    "url": "https://github.com/adam-s/trolley-tracker/issues"
   },
-  "homepage": "https://github.com/adam-s/trolly-tracker#readme",
+  "homepage": "https://github.com/adam-s/trolley-tracker#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "bower": "^1.7.7",
