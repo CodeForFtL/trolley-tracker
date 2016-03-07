@@ -14,8 +14,8 @@ var TrollySchema = new Schema({
     },
     speed: Number,
     location: {
-        lat: Number,
-        lng: Number
+        lng: Number,
+        lat: Number
     },
     loc: {
         type: [Number],
