@@ -22,14 +22,10 @@ describe('trolley model unit tests:', function() {
 
     it('should create a new trolley and save to database', function(done) {
         var trolley = new Trolley({
-            date: new Date('2016-03-05'),
+            bustime: new Date('2016-03-05'),
             deviceId: 1,
             speed: 20,
-            location: {
-                lat: 26.203733,
-                lng: -80.148749
-            },
-            loc: [26.203733, -80.148749]
+            coordinates: [-80.148749, 26.203733]
         });
 
         trolley.save(function(err, savedtrolley) {

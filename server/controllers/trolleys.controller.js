@@ -40,14 +40,14 @@ exports.index = function(req, res, next) {
         }
 
         query.limit(limit);
-        query.sort('-date');
+        query.sort('-bustime');
 
         query
             .exec(function(err, trolleys) {
                 if (err) return next(err);
                 res.json({
                     "status": "success",
-                    "data": trolleys,
+                    "data": featureFormatter(trolleys),
                     "message": null
                 });
             });
@@ -101,18 +101,14 @@ exports.create = function(req, res, next) {
         var trolley = new Trolley({
             deviceId: deviceId,
             speed: speed,
-            location: {
-                lng: lng,
-                lat: lat
-            },
-            loc: [lng, lat]
+            coordinates: [lng, lat]
         });
 
-        trolley.save(function(err, savedtrolley) {
+        trolley.save(function(err, savedTrolley) {
             if (err) return next(err);
             res.json({
                 "status": "success",
-                "data": savedtrolley,
+                "data": featureFormatter([savedTrolley]),
                 "message": null
             });
         });
@@ -138,4 +134,31 @@ exports.delete = function (req, res, next) {
             "message": "Nice try!"
         });
     }
+};
+
+function featureFormatter(trolleys) {
+    var features = _.map(trolleys, function(trolley) {
+        return {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    trolley.coordinates[1],
+                    trolley.coordinates[0]
+                ]
+            },
+            "properties": {
+                "lat": trolley.coordinates[1],
+                "lon": trolley.coordinates[0],
+                "bustime": trolley.bustime,
+                "speed": trolley.speed,
+                "deviceid": trolley.deviceId
+            }
+        }
+    });
+
+    return {
+        "type": "FeatureCollection",
+        "features": features
+    };
 }

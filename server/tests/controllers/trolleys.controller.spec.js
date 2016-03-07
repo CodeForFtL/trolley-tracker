@@ -36,7 +36,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys')
                 .expect(200)
                 .end(function(err, response){
-                    expect(response.body.data.length).to.equal(3);
+                    expect(response.body.data.features.length).to.equal(3);
                     done();
                 });
         });
@@ -46,7 +46,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys?limit=1')
                 .expect(200)
                 .end(function(err, response) {
-                    expect(response.body.data.length).to.equal(1);
+                    expect(response.body.data.features.length).to.equal(1);
                     done();
                 });
         });
@@ -57,9 +57,9 @@ describe('trolleys controller', function() {
                 .expect(200)
                 .end(function(err, response) {
                     var data = response.body.data;
-                    expect(data[0].date).to.equal((new Date('2016-03-04')).toISOString());
-                    expect(data[1].date).to.equal((new Date('2016-03-03')).toISOString());
-                    expect(data[2].date).to.equal((new Date('2016-03-02')).toISOString());
+                    expect(data.features[0].properties.bustime).to.equal((new Date('2016-03-04')).toISOString());
+                    expect(data.features[1].properties.bustime).to.equal((new Date('2016-03-03')).toISOString());
+                    expect(data.features[2].properties.bustime).to.equal((new Date('2016-03-02')).toISOString());
                     done();
                 });
         });
@@ -95,9 +95,9 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4')
                 .expect(200)
                 .end(function(err, response) {
-                    console.log(response);
+                    if (err) return done(err);
                     expect(response.body.status).to.equal('success');
-                    expect(response.body.data.speed).to.equal(40);
+                    expect(response.body.data.features[0].properties.speed).to.equal(40);
                     done();
                 })
         });
@@ -134,34 +134,22 @@ function seedtrolleys() {
         Trolley.remove({}, function() {
             var trolleys = [
                 {
-                    date: new Date('2016-03-02'),
+                    bustime: new Date('2016-03-02'),
                     deviceId: 1,
                     speed: 30,
-                    location: {
-                        lat: 26.203733,
-                        lng: -80.148749
-                    },
-                    loc: [26.203733, -80.148749]
+                    coordinates: [-80.148749, 26.203733]
                 },
                 {
-                    date: new Date('2016-03-04'),
+                    bustime: new Date('2016-03-04'),
                     deviceId: 2,
                     speed: 10,
-                    location: {
-                        lat: 26.120249,
-                        lng: -80.142674
-                    },
-                    loc: [26.120249, -80.142674]
+                    coordinates: [ -80.142674, 26.120249]
                 },
                 {
-                    date: new Date('2016-03-03'),
+                    bustime: new Date('2016-03-03'),
                     deviceId: 1,
                     speed: 20,
-                    location: {
-                        lat: 26.103367,
-                        lng: -80.142909
-                    },
-                    loc: [26.103367, -80.142909]
+                    coordinates: [-80.142909, 26.103367]
                 }
             ];
 

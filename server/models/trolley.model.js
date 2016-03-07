@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var trolleySchema = new Schema({
-    date: {
+    bustime: {
         type: Date,
         default: Date.now,
         index: true
@@ -13,11 +13,7 @@ var trolleySchema = new Schema({
         type: String
     },
     speed: Number,
-    location: {
-        lng: Number,
-        lat: Number
-    },
-    loc: {
+    coordinates: {
         type: [Number],
         index: '2d'
     }
