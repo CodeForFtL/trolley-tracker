@@ -1,6 +1,6 @@
 'use strict';
 
-var trollies = require('../controllers/trollies.controller.js');
+var trollies = require('../controllers/trolleys.controller.js');
 
 module.exports = function(app) {
     app.get('/api/trollies', trollies.index);
