@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    trolley = mongoose.model('trolley'),
+    Trolley = mongoose.model('Trolley'),
     _ = require('lodash');
 
 exports.index = function(req, res, next) {
@@ -33,7 +33,7 @@ exports.index = function(req, res, next) {
             "message": messages
         });
     } else {
-        var query = trolley.find();
+        var query = Trolley.find();
 
         if (deviceId) {
             query.where('deviceId', deviceId);
@@ -98,7 +98,7 @@ exports.create = function(req, res, next) {
             "message": messages
         });
     } else {
-        var trolley = new trolley({
+        var trolley = new Trolley({
             deviceId: deviceId,
             speed: speed,
             location: {
@@ -123,7 +123,7 @@ exports.delete = function (req, res, next) {
     var token = req.query.token;
 
     if (token == 'dont-fucking-do-it') {
-        trolley.remove(function(err) {
+        Trolley.remove(function(err) {
             if (err) return next(err);
             res.json({
                 "status": "success",

@@ -1,6 +1,6 @@
 'use strict';
 
-var trolley = require('../../models/trolley.model.js'),
+var Trolley = require('../../models/trolley.model.js'),
     mongoose = require('mongoose');
 
 describe('trolleys controller', function() {
@@ -95,6 +95,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4')
                 .expect(200)
                 .end(function(err, response) {
+                    console.log(response);
                     expect(response.body.status).to.equal('success');
                     expect(response.body.data.speed).to.equal(40);
                     done();
@@ -130,7 +131,7 @@ describe('trolleys controller', function() {
 
 function seedtrolleys() {
     before(function(done) {
-        trolley.remove({}, function() {
+        Trolley.remove({}, function() {
             var trolleys = [
                 {
                     date: new Date('2016-03-02'),
@@ -164,7 +165,7 @@ function seedtrolleys() {
                 }
             ];
 
-            trolley.create(trolleys, function(err, savedtrolley) {
+            Trolley.create(trolleys, function(err, savedtrolley) {
                 expect(typeof err).to.not.equal('undefined');
                 done();
             });
@@ -172,6 +173,6 @@ function seedtrolleys() {
     });
 
     after(function(done) {
-        trolley.remove({}, function() { done() });
+        Trolley.remove({}, function() { done() });
     });
 }

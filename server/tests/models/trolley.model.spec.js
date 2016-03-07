@@ -1,6 +1,6 @@
 'use strict';
 
-var trolley = require('../../models/trolley.model.js'),
+var Trolley = require('../../models/trolley.model.js'),
     mongoose = require('mongoose');
 
 describe('trolley model unit tests:', function() {
@@ -13,15 +13,15 @@ describe('trolley model unit tests:', function() {
     });
 
     beforeEach(function(done) {
-        trolley.remove(function() {done()});
+        Trolley.remove(function() {done()});
     });
 
     afterEach(function(done) {
-        trolley.remove(function() {done()});
+        Trolley.remove(function() {done()});
     });
 
     it('should create a new trolley and save to database', function(done) {
-        var trolley = new trolley({
+        var trolley = new Trolley({
             date: new Date('2016-03-05'),
             deviceId: 1,
             speed: 20,
@@ -34,7 +34,7 @@ describe('trolley model unit tests:', function() {
 
         trolley.save(function(err, savedtrolley) {
             expect(typeof err).to.not.equal('undefined');
-            trolley.findById(savedtrolley.id, function(err, newtrolley) {
+            Trolley.findById(savedtrolley.id, function(err, newtrolley) {
                 expect(typeof err).to.not.equal('undefined');
                 expect(newtrolley.id).to.equal(trolley.id);
                 done();

@@ -23,4 +23,4 @@ var trolleySchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('trolley', trolleySchema);
+module.exports = mongoose.model('Trolley', trolleySchema);
