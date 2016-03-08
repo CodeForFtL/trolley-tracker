@@ -73,7 +73,7 @@ Same as GET index.
 
 `http://trolley-tracker.herokuapp.com/api/trolleys/delete?token=delete-all-the-things`
 
-In production on a Heroku server, at `https://dashboard.heroku.com/apps/{my-app}/settings` add a config var `DELETE_TOKEN` to a secret string. Or, in a command line interface with a Heroku app initiated, type `heroku config:set GITHUB_USERNAME=joesmithheroku config:set DELETE_TOKEN=my-super-duper-secret-delete-token`.
+In production on a Heroku server, at `https://dashboard.heroku.com/apps/{my-app}/settings` add a config var `DELETE_TOKEN` to a secret string. Or, in a command line interface with a Heroku app initiated, type `heroku config:set DELETE_TOKEN=my-super-duper-secret-delete-token`.
 
 ### Query parameters:
 | Parameter | Description | Type | Default Value | Required|
