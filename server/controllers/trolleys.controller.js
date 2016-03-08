@@ -5,8 +5,6 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     config = require('../config/config');
 
-console.log(config);
-
 exports.index = function(req, res, next) {
     var validationErrors = [];
 
@@ -54,9 +52,9 @@ exports.index = function(req, res, next) {
                     "message": null
                 });
             });
-    };
+    }
 
-}
+};
 
 exports.create = function(req, res, next) {
     var validationErrors = [];
@@ -115,8 +113,8 @@ exports.create = function(req, res, next) {
                 "message": null
             });
         });
-    };
-}
+    }
+};
 
 exports.delete = function (req, res, next) {
     var token = req.query.token;
