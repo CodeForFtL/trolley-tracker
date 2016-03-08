@@ -8,7 +8,7 @@ Trolley Tracker stores geospatial and speed information for a public city trolle
 
 ## Get Trolley Locations
 
-**Method**: GET. Returns the 20 most recent trolley data events.
+**Method**: GET. Returns the 20 most recent trolley data events. Returns data with the bustime property descending so with a finite limit return the latest data.
 
     http://trolley-tracker.herokuapp.com/api/trolleys
 
