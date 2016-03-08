@@ -47,7 +47,7 @@ Returns only the latest 10 entries from deviceId 1
 
 Returns the latest 20 entries from deviceId 4
 
-    http://trolley-tracker.herokuapp.com/api/trolleys?limit=20&deviceId=1
+    http://trolley-tracker.herokuapp.com/api/trolleys?limit=20&deviceId=4
 
 ## Post Trolley Location
 **Method**: GET. Accepts query parameters.
