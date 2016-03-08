@@ -7,5 +7,6 @@
 
 module.exports = {
     db: process.env.MONGOLAB_URI,
-    dir: 'client'
+    dir: 'client',
+    deleteToken: process.env.DELETE_TOKEN
 };

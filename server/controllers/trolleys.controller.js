@@ -2,7 +2,10 @@
 
 var mongoose = require('mongoose'),
     Trolley = mongoose.model('Trolley'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    config = require('../config/config');
+
+console.log(config);
 
 exports.index = function(req, res, next) {
     var validationErrors = [];
@@ -118,16 +121,17 @@ exports.create = function(req, res, next) {
 exports.delete = function (req, res, next) {
     var token = req.query.token;
 
-    if (token == 'dont-fucking-do-it') {
+    if (!(_.isEmpty(config.deleteToken)) && token == config.deleteToken) {
         Trolley.remove(function(err) {
             if (err) return next(err);
             res.json({
                 "status": "success",
                 "data": null,
-                "message": "You swiped everything"
+                "message": "You wiped everything"
             });
         });
     } else {
+        res.status(400);
         res.json({
             "status": "failure",
             "data": null,

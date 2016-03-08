@@ -29,7 +29,7 @@ describe('trolleys controller', function() {
     });
 
     describe('GET /api/trolleys', function() {
-        seedtrolleys();
+        seedTrolleys();
 
         it('should get all the trolleys', function(done) {
             request(app)
@@ -66,7 +66,7 @@ describe('trolleys controller', function() {
     });
 
     describe('GET /api/trolleys validation errors', function() {
-        seedtrolleys();
+        seedTrolleys();
 
         it('should bitch if limit is NaN', function(done) {
             request(app)
@@ -127,9 +127,42 @@ describe('trolleys controller', function() {
         });
     });
 
+    describe('GET /api/trolleys/delete', function() {
+        seedTrolleys();
+        it('should delete the whole database', function(done) {
+            request(app)
+                .get('/api/trolleys/delete?token=delete-all-the-things')
+                .expect(200)
+                .end(function(err, response) {
+                    if (err) return done(err);
+                    expect(response.body.status).to.equal('success');
+                    Trolley.find({}, function(err, trolleys) {
+                        if (err) return done(err);
+                        expect(trolleys.length).to.equal(0);
+                        done();
+                    })
+                })
+        });
+    });
+
+    describe('GET /api/trolleys/delete validation errors', function() {
+        seedTrolleys();
+
+        it('should return 400 status error if the token is incorrect', function(done) {
+            request(app)
+                .get('/api/trolleys/delete?token=wrong-delete-token')
+                .expect(400)
+                .end(function(err, response) {
+                    if (err) return done(err);
+                    expect(response.body.message).to.equal('Nice try!');
+                    done();
+                })
+        });
+    })
+
 });
 
-function seedtrolleys() {
+function seedTrolleys() {
     before(function(done) {
         Trolley.remove({}, function() {
             var trolleys = [

@@ -3,5 +3,6 @@
 // Set the 'development' environment configuration object
 module.exports = {
     db: 'mongodb://localhost/trolley-tracker-dev',
-    dir: 'client'
+    dir: 'client',
+    deleteToken: 'delete-all-the-things'
 };
