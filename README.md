@@ -52,7 +52,7 @@ Returns the latest 20 entries from deviceId 4
 ## Post Trolley Location
 **Method**: GET. Accepts query parameters.
 
-````http://trolley-tracker.herokuapp.com/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4````
+`http://trolley-tracker.herokuapp.com/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4`
 
 ### Query parameters:
 | Parameter | Description | Type | Default Value | Required|
