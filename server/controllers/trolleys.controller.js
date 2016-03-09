@@ -154,7 +154,7 @@ function featureFormatter(trolleys) {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [trolley.coordinates]
+                "coordinates": trolley.coordinates
             },
             "properties": {
                 "lat": trolley.coordinates[1],
