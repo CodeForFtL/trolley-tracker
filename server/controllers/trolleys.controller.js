@@ -9,9 +9,9 @@ exports.index = function(req, res, next) {
     var validationErrors = [];
 
     var limit = req.query.limit || 10;
-    var deviceId = req.query.deviceId || '';
-    var lat = req.query.lat || '';
-    var lng = req.query.lng || '';
+    var deviceId = req.query.deviceid || '';
+    //var lat = req.query.lat || ''; // At some point this can be used for radius queries
+    //var lng = req.query.lng || '';
 
     if (isNaN(limit)) {
         validationErrors.push('Limit must be a number');
@@ -37,7 +37,7 @@ exports.index = function(req, res, next) {
         var query = Trolley.find();
 
         if (deviceId) {
-            query.where('deviceId', deviceId);
+            query.where('deviceid', deviceId);
         }
 
         query.limit(limit);
@@ -62,7 +62,7 @@ exports.create = function(req, res, next) {
     var lat = req.query.lat || '';
     var lng = req.query.lng || '';
     var speed = req.query.speed || '';
-    var deviceId = req.query.deviceId || '';
+    var deviceid = req.query.deviceid || '';
 
     if (_.isEmpty(lat)) {
         validationErrors.push('Lat needs to be set');
@@ -87,8 +87,8 @@ exports.create = function(req, res, next) {
         validationErrors.push('Speed needs to be a number');
     }
 
-    if (_.isEmpty(deviceId)) {
-        validationErrors.push('deviceId needs to be set');
+    if (_.isEmpty(deviceid)) {
+        validationErrors.push('deviceid needs to be set');
     }
     if (!(_.isEmpty(validationErrors))) {
         var messages = validationErrors.join('\n');
@@ -100,7 +100,7 @@ exports.create = function(req, res, next) {
         });
     } else {
         var trolley = new Trolley({
-            deviceId: deviceId,
+            deviceid: deviceid,
             speed: speed,
             coordinates: [lng, lat]
         });
@@ -144,10 +144,7 @@ function featureFormatter(trolleys) {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    trolley.coordinates[1],
-                    trolley.coordinates[0]
-                ]
+                "coordinates": [trolley.coordinates]
             },
             "properties": {
                 "lat": trolley.coordinates[1],

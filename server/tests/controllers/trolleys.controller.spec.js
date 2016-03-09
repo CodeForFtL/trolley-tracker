@@ -92,7 +92,7 @@ describe('trolleys controller', function() {
     describe('GET /api/trolleys/post', function() {
         it('should save a trolley to the database', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceId=4')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceid=4')
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
@@ -106,7 +106,7 @@ describe('trolleys controller', function() {
     describe('GET /api/trolleys/post validation errors', function() {
         it('should throw an error if speed is not included in the query', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceId=4')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceid=4')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');
@@ -117,7 +117,7 @@ describe('trolleys controller', function() {
 
         it('should throw an error if speed is NaN', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceId=4&speed=imnotanumber')
+                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceid=4&speed=imnotanumber')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');
@@ -168,19 +168,19 @@ function seedTrolleys() {
             var trolleys = [
                 {
                     bustime: new Date('2016-03-02'),
-                    deviceId: 1,
+                    deviceid: 1,
                     speed: 30,
                     coordinates: [-80.148749, 26.203733]
                 },
                 {
                     bustime: new Date('2016-03-04'),
-                    deviceId: 2,
+                    deviceid: 2,
                     speed: 10,
                     coordinates: [ -80.142674, 26.120249]
                 },
                 {
                     bustime: new Date('2016-03-03'),
-                    deviceId: 1,
+                    deviceid: 1,
                     speed: 20,
                     coordinates: [-80.142909, 26.103367]
                 }

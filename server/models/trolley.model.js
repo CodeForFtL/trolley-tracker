@@ -9,7 +9,7 @@ var trolleySchema = new Schema({
         default: Date.now,
         index: true
     },
-    deviceId: {
+    deviceid: {
         type: String
     },
     speed: Number,
