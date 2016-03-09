@@ -157,11 +157,11 @@ function featureFormatter(trolleys) {
                 "coordinates": trolley.coordinates
             },
             "properties": {
-                "lat": trolley.coordinates[1],
                 "lon": trolley.coordinates[0],
+                "lat": trolley.coordinates[1],
                 "bustime": trolley.bustime,
                 "speed": trolley.speed,
-                "deviceid": trolley.deviceId
+                "deviceid": trolley.deviceid
             }
         }
     });
