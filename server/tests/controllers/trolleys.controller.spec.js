@@ -92,7 +92,7 @@ describe('trolleys controller', function() {
     describe('GET /api/trolleys/post', function() {
         it('should save a trolley to the database', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&speed=40&deviceid=4')
+                .get('/api/trolleys/post?lat=26.203733&lon=-80.148749&speed=40&deviceid=4')
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
@@ -106,7 +106,7 @@ describe('trolleys controller', function() {
     describe('GET /api/trolleys/post validation errors', function() {
         it('should throw an error if speed is not included in the query', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceid=4')
+                .get('/api/trolleys/post?lat=26.203733&lon=-80.148749&deviceid=4')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');
@@ -117,7 +117,7 @@ describe('trolleys controller', function() {
 
         it('should throw an error if speed is NaN', function(done) {
             request(app)
-                .get('/api/trolleys/post?lat=26.203733&lng=-80.148749&deviceid=4&speed=imnotanumber')
+                .get('/api/trolleys/post?lat=26.203733&lon=-80.148749&deviceid=4&speed=imnotanumber')
                 .expect(400)
                 .end(function(err, response) {
                     expect(response.body.status).to.equal('error');

@@ -11,7 +11,7 @@ exports.index = function(req, res, next) {
     var limit = req.query.limit || 10;
     var deviceId = req.query.deviceid || '';
     //var lat = req.query.lat || ''; // At some point this can be used for radius queries
-    //var lng = req.query.lng || '';
+    //var lon = req.query.lon || '';
 
     if (isNaN(limit)) {
         validationErrors.push('Limit must be a number');
@@ -60,7 +60,7 @@ exports.create = function(req, res, next) {
     var validationErrors = [];
 
     var lat = req.query.lat || '';
-    var lng = req.query.lng || '';
+    var lon = req.query.lon || '';
     var speed = req.query.speed || '';
     var deviceid = req.query.deviceid || '';
 
@@ -72,12 +72,12 @@ exports.create = function(req, res, next) {
         validationErrors.push('Lat needs to be a number');
     }
 
-    if (_.isEmpty(lng)) {
-        validationErrors.push('Lng needs to be set');
+    if (_.isEmpty(lon)) {
+        validationErrors.push('Lon needs to be set');
     }
 
-    if (isNaN(lng)) {
-        validationErrors.push('Lng needs to be a number');
+    if (isNaN(lon)) {
+        validationErrors.push('Log needs to be a number');
     }
 
     if (_.isEmpty(speed)) {
@@ -102,7 +102,7 @@ exports.create = function(req, res, next) {
         var trolley = new Trolley({
             deviceid: deviceid,
             speed: speed,
-            coordinates: [lng, lat]
+            coordinates: [lon, lat]
         });
 
         trolley.save(function(err, savedTrolley) {
