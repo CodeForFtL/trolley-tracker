@@ -8,7 +8,7 @@ Trolley Tracker stores geospatial and speed information for a public city trolle
 
 ## Get Trolley Locations
 
-**Method**: GET. Returns the 10 most recent trolley data events. Returns data with the bustime property descending so with a finite limit return the latest data.
+**Method**: GET. Returns the 10 most recent trolley data events. Returns data with the bustime property descending with a limit set for the most recent results.
 
     http://trolley-tracker.herokuapp.com/api/trolleys
 
@@ -19,21 +19,21 @@ Trolley Tracker stores geospatial and speed information for a public city trolle
 | deviceId | The deviceId of the instrument on the trolly that collected the data| mixed | null | Yes |
 
 ### Response structure:
- + status (string) - Either 'success' or 'error'
- + data (object) - Data set
-	+ type (string) - Type of data set
-	+ features (object) - A collection of trolley data objects
-		+ type (string) - Feature type
-		+ geometry (string) - Geospatial data container
-			+ type (string) - Type of geospatial data
-			+ coordinates (array) [Latitude, Longitude]
-		+ properties (object) Misc data container
-			+ lat (number) Latitude
-			+ lon (number) Longitude
-			+ bustime (date) Datetime object in UTC
-			+ speed (number) Trolley speed
-			+ deviceid (mixed) Id of data collection device
- + message (string) - Description of error response
++ type (string) - Type of data set
++ features (object) - A collection of trolley data objects
+	+ type (string) - Feature type
+	+ geometry (string) - Geospatial data container
+		+ type (string) - Type of geospatial data
+		+ coordinates (array) [Latitude, Longitude]
+	+ properties (object) Misc data container
+		+ lat (number) Latitude
+		+ lon (number) Longitude
+		+ bustime (date) Datetime object in UTC
+		+ speed (number) Trolley speed
+		+ deviceid (mixed) Id of data collection device
++ metadata
+	+ status (string) - Either 'success' or 'error'
+	+ message (string) - Description of error response
 
 ### Examples
 

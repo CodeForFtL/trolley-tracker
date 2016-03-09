@@ -36,7 +36,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys')
                 .expect(200)
                 .end(function(err, response){
-                    expect(response.body.data.features.length).to.equal(3);
+                    expect(response.body.features.length).to.equal(3);
                     done();
                 });
         });
@@ -46,7 +46,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys?limit=1')
                 .expect(200)
                 .end(function(err, response) {
-                    expect(response.body.data.features.length).to.equal(1);
+                    expect(response.body.features.length).to.equal(1);
                     done();
                 });
         });
@@ -56,7 +56,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys')
                 .expect(200)
                 .end(function(err, response) {
-                    var data = response.body.data;
+                    var data = response.body;
                     expect(data.features[0].properties.bustime).to.equal((new Date('2016-03-04')).toISOString());
                     expect(data.features[1].properties.bustime).to.equal((new Date('2016-03-03')).toISOString());
                     expect(data.features[2].properties.bustime).to.equal((new Date('2016-03-02')).toISOString());
@@ -73,7 +73,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys?limit=lifesabitch')
                 .expect(400)
                 .end(function(err, response) {
-                    expect(response.body.message).to.equal('Limit must be a number');
+                    expect(response.body.metadata.message).to.equal('Limit must be a number');
                     done();
                 });
         });
@@ -83,7 +83,7 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys?limit=101')
                 .expect(400)
                 .end(function(err, response) {
-                    expect(response.body.message).to.equal('Limit can\'t be more than 100');
+                    expect(response.body.metadata.message).to.equal('Limit can\'t be more than 100');
                     done();
                 });
         });
@@ -96,8 +96,8 @@ describe('trolleys controller', function() {
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
-                    expect(response.body.status).to.equal('success');
-                    expect(response.body.data.features[0].properties.speed).to.equal(40);
+                    expect(response.body.metadata.status).to.equal('success');
+                    expect(response.body.features[0].properties.speed).to.equal(40);
                     done();
                 })
         });
@@ -109,8 +109,8 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys/post?lat=26.203733&lon=-80.148749&deviceid=4')
                 .expect(400)
                 .end(function(err, response) {
-                    expect(response.body.status).to.equal('error');
-                    expect(response.body.message).to.equal('Speed needs to be set');
+                    expect(response.body.metadata.status).to.equal('error');
+                    expect(response.body.metadata.message).to.equal('Speed needs to be set');
                     done();
                 });
         });
@@ -120,8 +120,8 @@ describe('trolleys controller', function() {
                 .get('/api/trolleys/post?lat=26.203733&lon=-80.148749&deviceid=4&speed=imnotanumber')
                 .expect(400)
                 .end(function(err, response) {
-                    expect(response.body.status).to.equal('error');
-                    expect(response.body.message).to.equal('Speed needs to be a number');
+                    expect(response.body.metadata.status).to.equal('error');
+                    expect(response.body.metadata.message).to.equal('Speed needs to be a number');
                     done();
                 });
         });
@@ -135,7 +135,7 @@ describe('trolleys controller', function() {
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
-                    expect(response.body.status).to.equal('success');
+                    expect(response.body.metadata.status).to.equal('success');
                     Trolley.find({}, function(err, trolleys) {
                         if (err) return done(err);
                         expect(trolleys.length).to.equal(0);
@@ -154,7 +154,7 @@ describe('trolleys controller', function() {
                 .expect(400)
                 .end(function(err, response) {
                     if (err) return done(err);
-                    expect(response.body.message).to.equal('Nice try!');
+                    expect(response.body.metadata.message).to.equal('Nice try!');
                     done();
                 })
         });

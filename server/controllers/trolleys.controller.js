@@ -29,9 +29,10 @@ exports.index = function(req, res, next) {
         var messages = validationErrors.join('\n');
         res.status(400);
         res.json({
-            "status": "error",
-            "data": null,
-            "message": messages
+            "metadata" : {
+                "status": "error",
+                "message": messages
+            }
         });
     } else {
         var query = Trolley.find();
@@ -46,11 +47,14 @@ exports.index = function(req, res, next) {
         query
             .exec(function(err, trolleys) {
                 if (err) return next(err);
-                res.json({
+
+                var features = featureFormatter(trolleys);
+                features["metadata"] = {
                     "status": "success",
-                    "data": featureFormatter(trolleys),
                     "message": null
-                });
+                };
+
+                res.json(features);
             });
     }
 
@@ -94,9 +98,10 @@ exports.create = function(req, res, next) {
         var messages = validationErrors.join('\n');
         res.status(400);
         res.json({
-            "status": "error",
-            "data": null,
-            "message": messages
+            "metadata" : {
+                "status": "error",
+                "message": messages
+            }
         });
     } else {
         var trolley = new Trolley({
@@ -107,11 +112,14 @@ exports.create = function(req, res, next) {
 
         trolley.save(function(err, savedTrolley) {
             if (err) return next(err);
-            res.json({
+
+            var features = featureFormatter([savedTrolley]);
+            features["metadata"] = {
                 "status": "success",
-                "data": featureFormatter([savedTrolley]),
                 "message": null
-            });
+            };
+
+            res.json(features);
         });
     }
 };
@@ -123,17 +131,19 @@ exports.delete = function (req, res, next) {
         Trolley.remove(function(err) {
             if (err) return next(err);
             res.json({
-                "status": "success",
-                "data": null,
-                "message": "You wiped everything"
+                "metadata": {
+                    "status": "success",
+                    "message": "You wiped everything"
+                }
             });
         });
     } else {
         res.status(400);
         res.json({
-            "status": "failure",
-            "data": null,
-            "message": "Nice try!"
+            "metadata": {
+                "status": "failure",
+                "message": "Nice try!"
+            }
         });
     }
 };
