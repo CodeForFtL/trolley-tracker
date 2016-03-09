@@ -16,7 +16,7 @@ Trolley Tracker stores geospatial and speed information for a public city trolle
 | Parameter | Description | Type | Default Value | Required|
 | -------------|---------------|-------|------------------|-----------|
 | limit | The number of results returned| number| 10 | No |
-| deviceId | The deviceId of the instrument on the trolly that collected the data| mixed | null | Yes |
+| deviceid | The deviceId of the instrument on the trolly that collected the data| mixed | null | Yes |
 
 ### Response structure:
 + type (string) - Type of data set
