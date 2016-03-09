@@ -57,8 +57,8 @@ Returns the latest 20 entries from deviceid 4
 ### Query parameters:
 | Parameter | Description | Type | Default Value | Required|
 | -------------|---------------|-------|------------------|-----------|
-| lat | Latitude | number | null | Yes |
 | lon | Longitude | numer | null | Yes |
+| lat | Latitude | number | null | Yes |
 | speed | Speed of trolley | number | null | Yes |
 |deviceid | Id of device | mixed | null | Yes |
 
@@ -85,6 +85,6 @@ In production on a Heroku server, at `https://dashboard.heroku.com/apps/{my-app}
 
 
 ### Response structure:
- + status (string) - Either 'success' or 'error'
- + data (object) - Data set, only placed for consistency.
- + message (string) - Description of error response
++ metadata
+	 + status (string) - Either 'success' or 'error'
+	 + message (string) - Description of error response
