@@ -65,7 +65,7 @@
 
     function requestTrolleys() {
         if (useMiamiTransitApi) {
-            $.getJSON('/api/trolleys',
+            $.getJSON('/api/trolleys?limit=100',
                     function(data) {
                         addTrolleys(data.features);
                     }).error(
