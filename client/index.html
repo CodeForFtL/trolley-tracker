@@ -1,34 +1,164 @@
-<!doctype html>
-<html ng-app="live">
-    <head>
-        <base href="/" />
-        <meta charset="utf-8"/>
-        <title>trolley Tracker</title>
-        <meta name="description" content="trolley Tracker"/>
-        <meta name="viewport" content="width=device-width"/>
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory-->
+<!DOCTYPE html>
+<html>
 
-        <!-- build:css css/app.css-->
-        <!-- bower:css -->
-        <!-- endbower -->
-        <!-- injector:css -->
-        <link rel="stylesheet" href="css/sass/app.css">
-        <link rel="stylesheet" href="css/scripts/components/calculator/calculator.css">
-        <!-- endinjector -->
-        <!-- endbuild -->
-    </head>
-    <body>
-    <calculator></calculator>
-    <!-- build:js js/app.js-->
-    <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <!-- endbower -->
-    <!-- injector:js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/components/calculator/calculator.ctrl.js"></script>
-    <script src="scripts/components/calculator/calculator.drv.js"></script>
-    <!-- endinjector -->
-    <!-- endbuild -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sweetwater Trolley</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
 
-    </body>
+<body >
+<div id="map"></div>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+<script src="Google.js"></script>
+<script src="GoogleTraffic.js"></script>
+<script>
+    // Initialize map
+    var map = L.map('map').setView([26.089648, -80.218541], 10);
+
+    // Load MapBox map
+    var accessToken = 'pk.eyJ1IjoicXRyYW5kZXYiLCJhIjoiSDF2cGNjZyJ9.D1ybOKe77AQDPHkxCCEpJQ';
+    var osmLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/qtrandev.lc0i743k/{z}/{x}/{y}.png?access_token=' + accessToken, {
+        maxZoom: 20,
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>'
+    });
+
+    // Set up Google Maps layers
+    var googleRoadmap = new L.Google('ROADMAP', { maxZoom: 20 });
+    var googleHybrid = new L.Google('HYBRID', { maxZoom: 20 });
+    var googleTraffic = new L.GoogleTraffic('ROADMAP', { maxZoom: 20 });
+    map.addLayer(googleRoadmap);
+
+    L.control.layers({'Google Map':googleRoadmap, 'Google Satellite':googleHybrid, 'Google Traffic':googleTraffic,'OpenStreetMap':osmLayer},{}).addTo(map);
+
+    var allMarkers = [];
+    var useMiamiTransitApi = true;
+
+    function init() {
+        requestTrolleys(); // Do initial request
+        setInterval(function() {
+            for (var i=0; i<allMarkers.length; i++) {
+                map.removeLayer(allMarkers[i]); // Remove markers for refresh
+            }
+            allMarkers = [];
+            requestTrolleys();
+        }, 5000);
+    }
+
+    function requestTrolleys() {
+        if (useMiamiTransitApi) {
+            $.getJSON('/api/trolleys',
+                    function(data) {
+                        addTrolleys(data.features);
+                    }).error(
+                    function () {
+                        useMiamiTransitApi = false;
+                        console.log("Error from Node JS API, using backup.");
+                    }
+            );
+        } else {
+            requestTrolleysBackup();
+        }
+    }
+
+    function requestTrolleysBackup() {
+        $.getJSON(
+                'https://198.74.52.26/map/map-json.php',
+                function(data) {
+                    addTrolleys(data.features);
+                }
+        ).error(
+                function () {
+                    useMiamiTransitApi = true;
+                    console.log("Error from backup data source, using Node JS API.");
+                }
+        );
+    }
+
+    function addTrolleys(trolleys) {
+        var i = 0;
+        for (i = 0; i < trolleys.length; i++) {
+            addMarker(
+                    trolleys[i].properties.deviceid,
+                    trolleys[i].properties.lat,
+                    trolleys[i].properties.lon,
+                    trolleys[i].properties.bustime,
+                    trolleys[i].properties.speed
+            );
+        }
+    }
+
+    function addMarker(deviceid, lat, lon, bustime, speed) {
+        var marker = L.marker([lat, lon]).bindPopup(
+                '<strong>Node Trolley</strong>'+
+                '<br>Bus ID: ' +  deviceid +
+                '<br>Location: <a target="blank" href="https://maps.google.com?q=' +
+                lat + ',' +  lon + '">' + lat + ',' + lon + '</a>' +
+                '<br>Last Time: ' +  bustime +
+                '<br>Speed: ' +  speed + 'MPH' +
+                '<br>Updated: ' + getTimeDiffString(bustime),
+                { offset: new L.Point(0, -22) }).addTo(map);
+        marker.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        allMarkers.push(marker); // Add to remove on refresh
+    }
+
+    function getTimeDiffString(time) {
+        var currentTime = new Date().getTime();
+        var busTime = new Date(time).getTime();
+        var differenceMillis = currentTime - busTime;
+        var oneMinute = 60*1000;
+        var fiveMinutes = 5*oneMinute;
+        var fifteenMinutes = 15*oneMinute;
+        var oneHour = 60*oneMinute;
+
+        var styleOutput = '';
+        if (differenceMillis > oneHour) {
+            var value = Math.floor(differenceMillis/oneHour);
+            styleOutput = '<strong>'+ value + (value>1?' hours':' hour') + ' ago </strong>';
+            styleOutput = styleOutput.fontcolor("red");;
+        } else if (differenceMillis > fifteenMinutes) {
+            var value = Math.floor(differenceMillis/oneMinute);
+            styleOutput = '<strong>'+ value + (value>1?' minutes':' minute') + ' ago </strong>';
+            styleOutput = styleOutput.fontcolor("gray");
+        } else if (differenceMillis > fiveMinutes) {
+            var value = Math.floor(differenceMillis/oneMinute);
+            styleOutput = '<strong>'+ value + (value>1?' minutes':' minute') + ' ago </strong>';
+            styleOutput = styleOutput.fontcolor("orange");
+        } else if (differenceMillis > oneMinute){
+            var value = Math.floor(differenceMillis/oneMinute);
+            styleOutput = '<strong>'+ value + (value>1?' minutes':' minute') + ' ago </strong>';
+            styleOutput = styleOutput.fontcolor("green");
+        } else {
+            if (differenceMillis < 0) differenceMillis = 0;
+            var value = Math.floor(differenceMillis/1000);
+            styleOutput = '<strong>'+ value + (value>1?' seconds':' second') + ' ago </strong>';
+            styleOutput = styleOutput.fontcolor("green");
+        }
+
+        return styleOutput;
+    }
+
+    init();
+</script>
+</body>
 </html>
